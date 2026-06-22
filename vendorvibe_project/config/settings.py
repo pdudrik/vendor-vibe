@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django_countries",
+    "djmoney",
     "django_browser_reload",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -147,6 +149,11 @@ STATICFILES_DIRST = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+MEDIA_URL = "media/"
+
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

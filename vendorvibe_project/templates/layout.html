@@ -14,19 +14,22 @@
         <div class="container-fluid p-0 mb-4">
             <nav class="navbar bg-dark navbar-expand-lg ps-3">
                 <div class="container-fluid">
+
                     <a class="navbar-brand text-white" href="#">VendorVibe</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                                <a class="nav-link active text-white"href="{% url 'core:home' %}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="#">Vendors</a>
+                                <a class="nav-link text-white" href="{% url 'core:vendors' %}">Vendors</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="#">Contracts</a>
