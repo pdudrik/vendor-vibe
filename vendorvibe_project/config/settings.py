@@ -114,6 +114,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# For DB engine use the dot (.)
+AUTH_USER_MODEL = "authentication.Employee"
+
+# For routing engine use the colon (:)
+LOGIN_URL = "authentication:login"
+
+LOGIN_REDIRECT_URL = "core:home"
+
+LOGOUT_REDIRECT_URL = "authentication:login"
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/

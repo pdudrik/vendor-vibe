@@ -6,3 +6,4 @@ vendorvibe_project/config/__pycache__/
 vendorvibe_project/apps/authentication/__pycache__/
 vendorvibe_project/apps/authentication/migrations/__pycache__/
 vendorvibe_project/apps/core/migrations/__pycache__/
+vendorvibe_project/apps/core/__pycache__/
