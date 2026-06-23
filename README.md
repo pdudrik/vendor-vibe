@@ -1,6 +1,9 @@
 # vendor-vibe
 Web application dedicated for managing and monitoring company expenses - vendors (B2B contracts).
 
+## To Do
+1. Apply custom mixin to views as permission guard
+
 ## Setup
 
 1. Create venv.

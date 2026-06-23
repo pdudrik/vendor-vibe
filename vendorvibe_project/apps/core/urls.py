@@ -13,4 +13,6 @@ urlpatterns = [
     path("vendor/<int:pk>/detail/", views.DetailVendorView.as_view(), name="detail_vendor"),
     path("vendor/<int:pk>/address/create/", views.CreateVendorAddressView.as_view(), name="create_vendor_address"),
     path("vendor/<int:pk>/contact/create/", views.CreateVendorContactView.as_view(), name="create_vendor_contact"),
+    path("address/<int:pk>/delete/", views.DeleteVendorAddressView.as_view(), name="delete_vendor_address"),
+    path("contact/<int:pk>/delete/", views.DeleteVendorContactView.as_view(), name="delete_vendor_contact"),
 ]
