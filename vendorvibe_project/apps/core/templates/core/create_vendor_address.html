@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}New Vendor address{% endblock title %}
+{% block heading %}Create new vendor address{% endblock heading %}
+
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-4">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div class="container d-flex justify-content-end mt-4">
+                    <button class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

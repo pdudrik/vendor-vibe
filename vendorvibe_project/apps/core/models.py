@@ -2,6 +2,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django_countries.fields import CountryField
 from djmoney.models.fields import MoneyField
+from apps.authentication.models import Company
 
 
 CATEGORIES = {
@@ -32,7 +33,11 @@ INVOICE_STATUS_OPTIONS = {
 
 
 class Vendor(models.Model):
-
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.CASCADE,
+        related_name="vendors"
+    )
     name = models.CharField(
         max_length=50
     )
@@ -53,10 +58,11 @@ class Vendor(models.Model):
 
 
 class Address(models.Model):
-    vendor_id = models.ForeignKey(
+    vendor = models.ForeignKey(
         Vendor,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name="addresses"
     )
     street = models.CharField(
         max_length=60
@@ -84,16 +90,17 @@ class Address(models.Model):
         verbose_name_plural = "Addresses"
 
     def __str__(self):
-        if self.vendor_id:
+        if self.vendor:
             return self.vendor.name
         return f"Vendor NULL to record id: {self.id}({self.street})"
     
 
 class Contact(models.Model):
-    vendor_id = models.ForeignKey(
+    vendor = models.ForeignKey(
         Vendor,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name="contacts"
     )
     first_name = models.CharField(
         max_length=30,
@@ -132,10 +139,11 @@ class Contact(models.Model):
     
 
 class Contract(models.Model):
-    vendor_id = models.ForeignKey(
+    vendor = models.ForeignKey(
         Vendor,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name="contracts"
     )
     name = models.CharField(
         max_length=30
@@ -153,10 +161,11 @@ class Contract(models.Model):
     
 
 class Invoice(models.Model):
-    contcract_id = models.ForeignKey(
+    contcract = models.ForeignKey(
         Contract,
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        related_name="invoices"
     )
     invoice_id = models.CharField(
         max_length=30,
@@ -169,7 +178,7 @@ class Invoice(models.Model):
         default_currency="EUR"
     )
     issue_date = models.DateField()
-    issue_date = models.DateField()
+    due_date = models.DateField()
     status = models.CharField(
         max_length=2,
         choices=INVOICE_STATUS_OPTIONS

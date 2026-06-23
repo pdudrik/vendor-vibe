@@ -36,6 +36,7 @@ Format rules:<br>
 <br>
 
 `Vendor`
+- `company` - int, FK to Company model, not null
 - `id` - int, pk, unique
 - `name` - str, not null
 - `service_category` - str, not null (e.g. marketing, legal, finance)
