@@ -2,8 +2,4 @@
 .venv/
 vendorvibe_project/db.sqlite3
 vendorvibe_project/static/media
-vendorvibe_project/config/__pycache__/
-vendorvibe_project/apps/authentication/__pycache__/
-vendorvibe_project/apps/authentication/migrations/__pycache__/
-vendorvibe_project/apps/core/migrations/__pycache__/
-vendorvibe_project/apps/core/__pycache__/
+**/__pycache__/
