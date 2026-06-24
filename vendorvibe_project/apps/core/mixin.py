@@ -49,13 +49,22 @@ class CompanyDataMixin:
         # from frontend form), if not it's delete request from
         # DeleteView for certain model. If so skip injection bellow
         # and allow deleting record.
+        # GUARD: Deleting existing record (e.g. DeleteView)
         if not hasattr(form, "instance"):
             return super().form_valid(form)
         
         user_company = self.request.user.company
 
+        # Check if object already exists. Every instace has "pk" attribute
+        # but only those which do not exist have pk=None (NULL in DB).
+        # If so, continue this method. If not, create new record.
+        # GUARD: Update of existing record (e.g. UpdateView)
+        if form.instance.pk is not None:
+            return super().form_valid(form)
+
         # Check for direct authorized relationship similar as above
         # in get_queryset() method.
+        # GUARD (whole if and elif): Creation of new record (e.g. CreateView)
         if hasattr(form.instance, "company"):
             form.instance.comapany = user_company
         
