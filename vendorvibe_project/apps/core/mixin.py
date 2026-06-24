@@ -50,7 +50,7 @@ class CompanyDataMixin:
         # DeleteView for certain model. If so skip injection bellow
         # and allow deleting record.
         if not hasattr(form, "instance"):
-            return().form_valid(form)
+            return super().form_valid(form)
         
         user_company = self.request.user.company
 
