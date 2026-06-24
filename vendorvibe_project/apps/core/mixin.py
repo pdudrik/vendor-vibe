@@ -45,6 +45,13 @@ class CompanyDataMixin:
         return queryset
     
     def form_valid(self, form):
+        # First check if form has instace (collected input fields
+        # from frontend form), if not it's delete request from
+        # DeleteView for certain model. If so skip injection bellow
+        # and allow deleting record.
+        if not hasattr(form, "instance"):
+            return().form_valid(form)
+        
         user_company = self.request.user.company
 
         # Check for direct authorized relationship similar as above
