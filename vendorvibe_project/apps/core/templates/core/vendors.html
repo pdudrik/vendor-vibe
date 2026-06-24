@@ -30,14 +30,21 @@
                         <td>{{ vendor.get_service_category_display }}</td>
                         <td>{{ vendor.get_status_display }}</td>
                         <td>
-                            <form
-                                action="{% url 'core:delete_vendor' pk=vendor.pk %}"
-                                method="post"
-                                onsubmit="return confirm('Do you really want to delete {{ vendor.name }} vendor?')"
-                                class="">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
-                            </form>
+                            <div class="container d-flex gap-2">
+                                <a
+                                    href="{% url 'core:update_vendor' pk=vendor.pk %}"
+                                    class="btn btn-primary btn-sm">
+                                    EDIT
+                                </a>
+                                <form
+                                    action="{% url 'core:delete_vendor' pk=vendor.pk %}"
+                                    method="post"
+                                    onsubmit="return confirm('Do you really want to delete {{ vendor.name }} vendor?')"
+                                    class="">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                 {% empty %}

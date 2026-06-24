@@ -6,7 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Vendor, Contact, Address
 from .forms import CreateVendorForm,                    \
-    CreateVendorAddressForm, CreateVendorContactForm
+    CreateVendorAddressForm, CreateVendorContactForm,   \
+    VendorForm, AddressForm, ContactForm
 from .mixin import CompanyDataMixin
 
 
@@ -49,6 +50,16 @@ class DetailVendorView(LoginRequiredMixin, CompanyDataMixin, DetailView):
         return context
 
 
+class UpdateVendorView(LoginRequiredMixin, CompanyDataMixin, UpdateView):
+    model = Vendor
+    template_name = "core/update_vendor.html"
+    form_class = VendorForm
+    
+    def get_success_url(self):
+        vendor_pk = self.kwargs["pk"]
+        return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})
+
+
 class CreateVendorAddressView(LoginRequiredMixin, CompanyDataMixin, CreateView):
     model = Address
     template_name = "core/create_vendor_address.html"
@@ -59,11 +70,27 @@ class CreateVendorAddressView(LoginRequiredMixin, CompanyDataMixin, CreateView):
         return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})
 
 
-class DeleteVendorAddressView(LoginRequiredMixin, DeleteView):
-    pass
+class UpdateAddressView(LoginRequiredMixin, CompanyDataMixin, UpdateView):
+    model = Address
+    template_name = "core/update_address.html"
+    form_class = AddressForm
+    
+    def get_success_url(self):
+        address_obj = self.get_object()
+        vendor_pk = address_obj.vendor.pk
 
-class DeleteVendorContactView(LoginRequiredMixin, DeleteView):
-    pass
+        return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})
+
+
+class DeleteAddressView(LoginRequiredMixin, CompanyDataMixin, DeleteView):
+    model = Address
+    
+    def get_success_url(self):
+        address_obj = self.get_object()
+        vendor_pk = address_obj.vendor.pk
+
+        return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})
+
 
 
 class CreateVendorContactView(LoginRequiredMixin, CompanyDataMixin, CreateView):
@@ -73,4 +100,26 @@ class CreateVendorContactView(LoginRequiredMixin, CompanyDataMixin, CreateView):
     
     def get_success_url(self):
         vendor_pk = self.kwargs["pk"]
+        return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})
+
+
+class UpdateContactView(LoginRequiredMixin, CompanyDataMixin, UpdateView):
+    model = Contact
+    template_name = "core/update_contact.html"
+    form_class = ContactForm
+    
+    def get_success_url(self):
+        contact_obj = self.get_object()
+        vendor_pk = contact_obj.vendor.pk
+
+        return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})
+
+
+class DeleteContactView(LoginRequiredMixin,CompanyDataMixin, DeleteView):
+    model = Contact
+    
+    def get_success_url(self):
+        contact_obj = self.get_object()
+        vendor_pk = contact_obj.vendor.pk
+
         return reverse("core:detail_vendor", kwargs={"pk": vendor_pk})

@@ -2,9 +2,9 @@
 Web application dedicated for managing and monitoring company expenses - vendors (B2B contracts).
 
 ## To Do
+1. Simplify forms and html files - DRY rule.
 
 ## Setup
-
 1. Create venv.
 2. Install requirements.txt.
 3. Create .env file and insert enter hosts and secret key.

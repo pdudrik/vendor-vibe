@@ -11,18 +11,54 @@
 
 
 {% block content %}
-    <div class="container">
-        <p>Vendor name: {{ vendor.name }}</p>
-        <p>Service category: {{ vendor.get_service_category_display }}</p>
-        <p>
-            Status:
-            {% if vendor.status == "active" %}
-                <span class="text-success">{{ vendor.get_status_display }}</span>
-            {% else %}
-                <span class="text-danger">{{ vendor.get_status_display }}</span>
-            {% endif %}
-        </p>
+    <div class="container d-flex align-items-center justify-content-between">
+
+        <div class="container w-100">
+            <p>Vendor name: {{ vendor.name }}</p>
+            <p>Service category: {{ vendor.get_service_category_display }}</p>
+            <p>
+                Status:
+                {% if vendor.status == "active" %}
+                    <span class="text-success">{{ vendor.get_status_display }}</span>
+                {% else %}
+                    <span class="text-danger">{{ vendor.get_status_display }}</span>
+                {% endif %}
+            </p>
+        </div>
+
+        <div class="d-flex flex-column gap-2 me-3">
+            <a
+                href="{% url 'core:update_vendor' pk=vendor.pk %}"
+                class="btn btn-primary btn-sm"
+                style="min-width: 80px;">
+                EDIT
+            </a>
+            <form
+                action="{% url 'core:delete_vendor' pk=vendor.pk %}"
+                method="post"
+                onsubmit="return confirm('Do you really want to delete {{ vendor.name }} vendor?')">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm" style="min-width: 80px;">DELETE</button>
+            </form>
+        </div>
+
+        <div class="d-flex flex-column gap-2">
+            <a
+                href="{% url 'core:create_vendor_address' pk=vendor.pk %}"
+                class="btn btn-primary btn-sm"
+                style="min-width: 110px;">
+                Add address
+            </a>
+            <a
+                href="{% url 'core:create_vendor_contact' pk=vendor.pk %}"
+                class="btn btn-primary btn-sm"
+                style="min-width: 110px;">
+                Add contact
+            </a>
+        </div>
+
     </div>
+
 
     <div class="container">
         
@@ -50,17 +86,25 @@
                             <td>{{ address.postal_code }}</td>
                             <td>{{ address.get_country_display }}</td>
                             <td>{{ address.street_opt }}</td>
-                            <td></td>
-                            <!-- <td>
-                                <form
-                                    action="{% url 'core:delete_vendor' pk=vendor.pk %}"
-                                    method="post"
-                                    onsubmit="return confirm('Do you really want to delete {{ vendor.name }} vendor?')"
-                                    class="">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
-                                </form>
-                            </td> -->
+                            <td>
+
+                                <div class="container d-flex gap-2">
+                                    <a
+                                        href="{% url 'core:update_address' pk=address.pk %}"
+                                        class="btn btn-primary btn-sm">
+                                        EDIT
+                                    </a>
+                                    <form
+                                        action="{% url 'core:delete_address' pk=address.pk %}"
+                                        method="post"
+                                        onsubmit="return confirm('Do you really want to delete selected address?')"
+                                        class="">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+                                    </form>
+                                </div>
+
+                            </td>
                         </tr>
                     {% empty %}
                         <tr>
@@ -91,17 +135,25 @@
                             <td>{{ contact.number }}</td>
                             <td>{{ contact.email }}</td>
                             <td>{{ contact.middle_name }}</td>
-                            <td></td>
-                            <!-- <td>
-                                <form
-                                    action="{% url 'core:delete_vendor' pk=vendor.pk %}"
-                                    method="post"
-                                    onsubmit="return confirm('Do you really want to delete {{ vendor.name }} vendor?')"
-                                    class="">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
-                                </form>
-                            </td> -->
+                            <td>
+
+                                <div class="container d-flex gap-2">
+                                    <a
+                                        href="{% url 'core:update_contact' pk=contact.pk %}"
+                                        class="btn btn-primary btn-sm">
+                                        EDIT
+                                    </a>
+                                    <form
+                                        action="{% url 'core:delete_contact' pk=contact.pk %}"
+                                        method="post"
+                                        onsubmit="return confirm('Do you really want to delete selected contact {{ contact.first_name }} {{ contact.last_name }}?')"
+                                        class="">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger btn-sm">DELETE</button>
+                                    </form>
+                                </div>
+                                
+                            </td>
                         </tr>
                     {% empty %}
                         <tr>
