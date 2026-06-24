@@ -77,4 +77,21 @@ class CompanyDataMixin:
                 form.instance.vendor = vendor_obj
         
         return super().form_valid(form)
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        user_company = self.request.user.company
+
+        # Filter vendors and load only those which are within
+        # user's company workspace e.g. for dropdown options.
+        if "vendor" in form.fields:
+            form.fields["vendor"].queryset = Vendor.objects.filter(company=user_company)
+        
+        # Filter contracts and load only those which are within
+        # selected contract selected vendor
+        if "contract" in form.fields:
+            filtered_data = form.fields["contract"].queryset.filter(vendor__company=user_company)
+            form.fields["contract"] = filtered_data
+
+        return form
     
